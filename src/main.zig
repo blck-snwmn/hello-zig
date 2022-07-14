@@ -35,6 +35,11 @@ pub fn main() !void {
 
     print("memory.len={}\n", .{memory.len});
     print("@TypeOf(memory)={}\n", .{@TypeOf(memory)});
+
+    const max = @as(u32, std.math.maxInt(u32));
+    print("{}\n", .{max});
+    // Error!(overflow): print("{}\n", .{max+1});
+    print("{}\n", .{max+%1});
 }
 
 test "add" {
