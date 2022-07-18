@@ -30,11 +30,13 @@ pub fn main() !void {
 
     const allocator = std.heap.page_allocator;
 
-    const memory = try allocator.alloc(u8, 100);
+    const memory = try allocator.alloc(u8, 10);
     defer allocator.free(memory);
+    memory[0]=10;
 
     print("memory.len={}\n", .{memory.len});
     print("@TypeOf(memory)={}\n", .{@TypeOf(memory)});
+    print("memory={any}\n", .{memory});
 
     const max = @as(u32, std.math.maxInt(u32));
     print("{}\n", .{max});
