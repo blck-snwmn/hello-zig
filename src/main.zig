@@ -32,7 +32,8 @@ pub fn main() !void {
 
     const memory = try allocator.alloc(u8, 10);
     defer allocator.free(memory);
-    memory[0]=10;
+    memory[0] = 10;
+    memory[1] = 10;
 
     print("memory.len={}\n", .{memory.len});
     print("@TypeOf(memory)={}\n", .{@TypeOf(memory)});
@@ -41,7 +42,22 @@ pub fn main() !void {
     const max = @as(u32, std.math.maxInt(u32));
     print("{}\n", .{max});
     // Error!(overflow): print("{}\n", .{max+1});
-    print("{}\n", .{max+%1});
+    print("{}\n", .{max +% 1});
+    print("type{}\n", .{@TypeOf(memory)});
+
+    print("{}\n", .{add(memory, memory)});
+}
+
+fn ArrayElem(comptime t: type) type {
+    return switch (@typeInfo(t)) {
+        .Array => |a| a.child,
+        .Pointer => |a| a.child,
+        else => @compileError("not impelemented"),
+    };
+}
+
+fn add(l: anytype, r: @TypeOf(l)) ArrayElem(@TypeOf(l)) {
+    return l[0] + r[1];
 }
 
 test "add" {
@@ -50,7 +66,7 @@ test "add" {
 
     const px = p1.add(p2);
 
-    try std.testing.expectEqual(px, Point{.x=22, .y=46 });
+    try std.testing.expectEqual(px, Point{ .x = 22, .y = 46 });
 }
 
 const eql = std.mem.eql;
