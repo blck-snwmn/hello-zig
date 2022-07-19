@@ -66,11 +66,24 @@ fn sub(l: anytype, r: @TypeOf(l))@TypeOf(l){
     return l-r;
 }
 
+fn callAdd(l: anytype, r: @TypeOf(l))@TypeOf(l){
+    return l.add(r);
+}
+
 test "add" {
     const p1 = Point{ .x = 10, .y = 32 };
     const p2 = Point{ .x = 12, .y = 14 };
 
     const px = p1.add(p2);
+
+    try std.testing.expectEqual(px, Point{ .x = 22, .y = 46 });
+}
+
+test "callAdd" {
+    const p1 = Point{ .x = 10, .y = 32 };
+    const p2 = Point{ .x = 12, .y = 14 };
+
+    const px = callAdd(p1, p2);
 
     try std.testing.expectEqual(px, Point{ .x = 22, .y = 46 });
 }
