@@ -17,3 +17,9 @@ If build as 'WASI'
 ```bash
 wasmtime main.wasm
 ```
+
+## Test
+
+```bash
+zig test src/main.zig
+```
