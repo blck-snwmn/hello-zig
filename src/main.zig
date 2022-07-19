@@ -46,6 +46,8 @@ pub fn main() !void {
     print("type{}\n", .{@TypeOf(memory)});
 
     print("{}\n", .{add(memory, memory)});
+    print("{any}\n", .{sub(1, 5)});
+    print("{any}\n", .{sub(0.5, 2.3)});
 }
 
 fn ArrayElem(comptime t: type) type {
@@ -58,6 +60,10 @@ fn ArrayElem(comptime t: type) type {
 
 fn add(l: anytype, r: @TypeOf(l)) ArrayElem(@TypeOf(l)) {
     return l[0] + r[1];
+}
+
+fn sub(l: anytype, r: @TypeOf(l))@TypeOf(l){
+    return l-r;
 }
 
 test "add" {
