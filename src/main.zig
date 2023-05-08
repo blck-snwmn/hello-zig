@@ -44,6 +44,7 @@ pub fn main() !void {
     // Error!(overflow): print("{}\n", .{max+1});
     print("{}\n", .{max +% 1});
     print("type{}\n", .{@TypeOf(memory)});
+    print("memory.len.type:{}\n", .{@TypeOf(memory.len)});
 
     print("{}\n", .{add(memory, memory)});
     print("{any}\n", .{sub(1, 5)});
@@ -62,11 +63,11 @@ fn add(l: anytype, r: @TypeOf(l)) ArrayElem(@TypeOf(l)) {
     return l[0] + r[1];
 }
 
-fn sub(l: anytype, r: @TypeOf(l))@TypeOf(l){
-    return l-r;
+fn sub(l: anytype, r: @TypeOf(l)) @TypeOf(l) {
+    return l - r;
 }
 
-fn callAdd(l: anytype, r: @TypeOf(l))@TypeOf(l){
+fn callAdd(l: anytype, r: @TypeOf(l)) @TypeOf(l) {
     return l.add(r);
 }
 
